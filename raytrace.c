@@ -3,6 +3,7 @@
 #include <unistd.h>
 #include <math.h>
 #include <time.h>
+#include <getopt.h>
 #include "vector.h"
 #include "color.h"
 #include "image.h"
