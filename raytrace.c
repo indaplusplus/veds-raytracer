@@ -189,7 +189,6 @@ void create_image(Image *image) {
           light_ray.destination = distance;
 
           Sphere *some = sphere_head;
-          int has_hit_sphere = 0;
           while(some != NULL) {
             if (!intersect(some, &light_ray, &f)) {
               //lambert dot product
@@ -265,7 +264,7 @@ int main(int argc, char *argv[]) {
   if (!save_as_png(&image, output_file_name)) {
     printf("Failed so save image.\n");
   }
-  
+
   cleanup(&image);
   return 0;
 }

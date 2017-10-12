@@ -1,4 +1,4 @@
-§FLAGS = -O3 -Wall -std=c99
+FLAGS = -O3 -Wall -std=c99
 DEPS = -lm -lpng
 
 raytrace:
