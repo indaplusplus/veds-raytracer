@@ -1,2 +1,5 @@
+§FLAGS = -O3 -Wall -std=c99
+DEPS = -lm -lpng
+
 raytrace:
-	$(CC) raytrace.c vector.c color.c image.c -o raytrace -lm -lpng -std=c99
+	$(CC) raytrace.c vector.c color.c image.c -o raytrace $(FLAGS) $(DEPS)

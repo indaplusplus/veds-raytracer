@@ -79,9 +79,27 @@ void add_light(Light *new_light) {
   current->next_light->next_light = NULL;
 }
 
-void free_spheres() {}
+void free_spheres() {
+  while(sphere_head) {
+    Sphere *tmp = sphere_head;
+    sphere_head = sphere_head->next_sphere;
+    free(tmp);
+  }
+}
 
-void free_lights() {}
+void free_lights() {
+  while(light_head) {
+    Light *tmp = light_head;
+    light_head = light_head->next_light;
+    free(tmp);
+  }
+}
+
+void cleanup(Image *image) {
+  free_spheres();
+  free_lights();
+  destroy_pixels(image);
+}
 
 void setup_random_world(Image *image, int amount_of_spheres_and_lights) {
   time_t t;
@@ -171,6 +189,7 @@ void create_image(Image *image) {
           light_ray.destination = distance;
 
           Sphere *some = sphere_head;
+          int has_hit_sphere = 0;
           while(some != NULL) {
             if (!intersect(some, &light_ray, &f)) {
               //lambert dot product
@@ -238,9 +257,7 @@ int main(int argc, char *argv[]) {
       return 0;
   }
 
-  Image image;
-  image.width = width;
-  image.height = height;
+  Image image = {width, height};
   alloc_pixels(&image);
   setup_random_world(&image, number);
   create_image(&image);
@@ -248,6 +265,7 @@ int main(int argc, char *argv[]) {
   if (!save_as_png(&image, output_file_name)) {
     printf("Failed so save image.\n");
   }
-  destroy_pixels(&image);
+  
+  cleanup(&image);
   return 0;
 }
